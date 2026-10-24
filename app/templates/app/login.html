@@ -1,0 +1,179 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockVision | Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #001316;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            background: #032529;
+            border: 1px solid #17605a;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            text-align: center;
+            color: #00e6a0;
+            font-size: 27px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #a3bdc3;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #17605a;
+            border-radius: 8px;
+            background: #001c20;
+            color: white;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: 2px solid #00e6a0;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #00e6a0;
+            color: #00251d;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #70ffcf;
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 22px;
+            color: #a3bdc3;
+            font-size: 14px;
+        }
+
+        a {
+            color: #00e6a0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .error {
+            color: #ff8f8f;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-box">
+
+        <div class="logo">↗ StockVision</div>
+
+        <h2>Welcome Back!</h2>
+
+        <p class="subtitle">
+            Login to your StockVision account
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <p class="error">
+                    Invalid username or password. Try again.
+                </p>
+            {% endif %}
+
+            <label for="id_username">Username</label>
+            <input
+                type="text"
+                name="username"
+                id="id_username"
+                placeholder="Enter your username"
+                required
+            >
+
+            <label for="id_password">Password</label>
+            <input
+                type="password"
+                name="password"
+                id="id_password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button type="submit" class="login-btn">
+                Login
+            </button>
+        </form>
+
+        <p class="register-text">
+            Don't have an account?
+            <a href="/register/">Register</a>
+        </p>
+
+        <a href="/" class="back-link">
+            ← Back to Home
+        </a>
+
+    </div>
+</body>
+</html>
