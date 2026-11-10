@@ -1,603 +1,562 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>StockVision | Home</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg: #101213;
-            --sidebar: #1a1e1e;
-            --card: #1c2020;
-            --border: #303535;
-            --green: #39f5a5;
-            --white: #ffffff;
-            --muted: #a8b5b5;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--bg);
-            color: var(--white);
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        /* NAVBAR */
-
-        nav {
-            width: 100%;
-            min-height: 78px;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            background: var(--sidebar);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo {
-            font-size: 27px;
-            font-weight: bold;
-            color: var(--white);
-            white-space: nowrap;
-        }
-
-        .logo span {
-            color: var(--green);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .nav-links a {
-            color: var(--muted);
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--green);
-        }
-
-        .nav-links .nav-button {
-            color: var(--bg);
-            background: var(--green);
-            padding: 11px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .nav-links .nav-button:hover {
-            background: #22d98c;
-            color: var(--bg);
-        }
-
-        /* HERO SECTION */
-
-        .hero {
-            min-height: 570px;
-            padding: 75px 7%;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            align-items: center;
-            gap: 55px;
-        }
-
-        .tag {
-            display: inline-block;
-            color: var(--green);
-            background: rgba(57, 245, 165, 0.08);
-            border: 1px solid rgba(57, 245, 165, 0.25);
-            padding: 8px 15px;
-            border-radius: 25px;
-            font-size: 13px;
-            margin-bottom: 24px;
-        }
-
-        .hero h1 {
-            font-size: clamp(38px, 5vw, 63px);
-            line-height: 1.15;
-            letter-spacing: -1.5px;
-            margin-bottom: 24px;
-        }
-
-        .hero h1 span {
-            color: var(--green);
-        }
-
-        .hero-description {
-            color: var(--muted);
-            max-width: 540px;
-            font-size: 16px;
-            line-height: 1.9;
-            margin-bottom: 30px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 13px 23px;
-            border-radius: 9px;
-            font-size: 15px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .button-primary {
-            background: var(--green);
-            color: #101213;
-        }
-
-        .button-primary:hover {
-            background: #22d98c;
-            transform: translateY(-2px);
-        }
-
-        .button-secondary {
-            border: 1px solid #4a5252;
-            color: var(--white);
-        }
-
-        .button-secondary:hover {
-            border-color: var(--green);
-            color: var(--green);
-        }
-
-        /* MARKET CARD */
-
-        .market-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 28px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .market-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 22px;
-        }
-
-        .market-card-header h2 {
-            font-size: 20px;
-        }
-
-        .live-label {
-            color: var(--green);
-            font-size: 12px;
-        }
-
-        .market-caption {
-            color: var(--muted);
-            font-size: 13px;
-            margin-bottom: 22px;
-        }
-
-        .chart {
-            height: 205px;
-            width: 100%;
-            display: flex;
-            align-items: end;
-            justify-content: space-around;
-            gap: 10px;
-            border-bottom: 1px solid #424949;
-            border-left: 1px solid #424949;
-            padding: 12px 10px 0;
-            background-image:
-                linear-gradient(to bottom, transparent 24%, #303535 25%, transparent 25.5%),
-                linear-gradient(to bottom, transparent 49%, #303535 50%, transparent 50.5%),
-                linear-gradient(to bottom, transparent 74%, #303535 75%, transparent 75.5%);
-        }
-
-        .bar {
-            width: 9%;
-            background: linear-gradient(
-                to top,
-                rgba(57, 245, 165, 0.15),
-                var(--green)
-            );
-            border-radius: 5px 5px 0 0;
-            transition: height 0.5s;
-        }
-
-        .bar:hover {
-            filter: brightness(1.2);
-        }
-
-        .chart-labels {
-            display: flex;
-            justify-content: space-between;
-            color: #8b9696;
-            font-size: 12px;
-            padding-top: 10px;
-        }
-
-        .market-note {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin-top: 25px;
-            padding: 15px;
-            background: #242929;
-            border-radius: 10px;
-        }
-
-        .market-note p {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .market-note strong {
-            color: var(--green);
-            font-size: 14px;
-        }
-
-        /* FEATURES */
-
-        .features {
-            padding: 65px 7% 80px;
-            border-top: 1px solid var(--border);
-        }
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-heading h2 {
-            font-size: 34px;
-            margin-bottom: 10px;
-        }
-
-        .section-heading h2 span {
-            color: var(--green);
-        }
-
-        .section-heading p {
-            color: var(--muted);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 22px;
-        }
-
-        .feature-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 28px;
-            transition: 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--green);
-        }
-
-        .feature-icon {
-            width: 52px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(57, 245, 165, 0.1);
-            border-radius: 12px;
-            font-size: 25px;
-            margin-bottom: 22px;
-        }
-
-        .feature-card h3 {
-            font-size: 19px;
-            margin-bottom: 12px;
-        }
-
-        .feature-card p {
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        /* CALL TO ACTION */
-
-        .cta {
-            margin: 0 7% 75px;
-            padding: 42px 30px;
-            text-align: center;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-        }
-
-        .cta h2 {
-            font-size: 29px;
-            margin-bottom: 12px;
-        }
-
-        .cta h2 span {
-            color: var(--green);
-        }
-
-        .cta p {
-            color: var(--muted);
-            margin-bottom: 24px;
-        }
-
-        /* FOOTER */
-
-        footer {
-            padding: 25px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            border-top: 1px solid var(--border);
-            background: var(--sidebar);
-        }
-
-        footer p {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        footer span {
-            color: var(--green);
-        }
-
-        /* RESPONSIVE DESIGN */
-
-        @media (max-width: 900px) {
-            .hero {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                padding-top: 55px;
-            }
-
-            .hero-content {
-                max-width: 700px;
-            }
-
-            .market-card {
-                max-width: 650px;
-                width: 100%;
-            }
-
-            .feature-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 600px) {
-            nav {
-                padding: 18px 5%;
-                flex-direction: column;
-            }
-
-            .nav-links {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .nav-links a {
-                font-size: 13px;
-            }
-
-            .hero {
-                padding: 45px 5%;
-            }
-
-            .hero h1 {
-                font-size: 39px;
-            }
-
-            .market-card {
-                padding: 20px;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .features {
-                padding: 50px 5%;
-            }
-
-            .section-heading h2 {
-                font-size: 28px;
-            }
-
-            .cta {
-                margin: 0 5% 50px;
-                padding: 32px 20px;
-            }
-
-            .cta h2 {
-                font-size: 24px;
-            }
-
-            footer {
-                justify-content: center;
-                text-align: center;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StockVision | Home</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:Arial,sans-serif;
+    background:#001416;
+    color:#f5ffff;
+}
+:root{
+    --green:#00e6a0;
+    --dark:#001416;
+    --panel:#002a2b;
+    --border:#007e68;
+}
+a{text-decoration:none;color:inherit}
+
+/* NAVBAR */
+nav{
+    height:80px;
+    padding:0 3%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#001416;
+    border-bottom:1px solid var(--green);
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:30px;
+    font-weight:bold;
+}
+.logo span{color:var(--green)}
+.logo svg{width:65px;height:55px}
+.navlinks{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+.navlinks a{
+    font-size:15px;
+    font-weight:bold;
+    padding:13px 15px;
+    border-radius:30px;
+    transition:.3s;
+}
+.navlinks a:hover,.navlinks .active{
+    color:var(--green);
+    background:#00e6a022;
+    outline:1px solid var(--green);
+}
+.login{
+    border:1px solid var(--green);
+    border-radius:30px;
+    padding:12px 23px;
+}
+
+/* HERO */
+.hero{
+    min-height:350px;
+    display:flex;
+    align-items:center;
+    padding:45px 5%;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 80% 70%,#006b503d,transparent 55%),
+      linear-gradient(100deg,#001416 10%,#002b2a 100%);
+    border-bottom:2px solid var(--green);
+}
+.hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:.18;
+    background-image:radial-gradient(#00e6a0 1px,transparent 1px);
+    background-size:18px 18px;
+}
+.hero-content{
+    width:48%;
+    z-index:2;
+}
+.hero h1{
+    font-size:clamp(48px,6vw,82px);
+    line-height:1.05;
+    margin-bottom:10px;
+}
+.hero h1 span{color:var(--green)}
+.tagline{
+    font-size:34px;
+    font-weight:bold;
+    margin:10px 0 15px;
+}
+.tagline span{color:var(--green);padding:0 9px}
+.hero p{
+    font-size:19px;
+    line-height:1.5;
+    color:#d1e5e1;
+    max-width:510px;
+    margin-bottom:22px;
+}
+.btn{
+    display:inline-block;
+    background:var(--green);
+    color:#001416;
+    padding:14px 28px;
+    border-radius:30px;
+    font-weight:bold;
+    box-shadow:0 0 18px #00e6a055;
+    transition:.3s;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 25px #00e6a0}
+
+/* HERO CHART ART */
+.hero-art{
+    width:55%;
+    position:absolute;
+    right:0;
+    bottom:0;
+    height:100%;
+    display:flex;
+    align-items:center;
+}
+.hero-art svg{width:100%;height:100%}
+
+/* FEATURES */
+.features{
+    padding:12px 3% 27px;
+    background:#001416;
+}
+.heading{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:35px;
+    font-size:30px;
+    margin-bottom:10px;
+}
+.heading:before,.heading:after{
+    content:"";
+    height:4px;
+    width:14%;
+    border-radius:5px;
+    background:var(--green);
+    box-shadow:0 0 10px var(--green);
+}
+.heading span{color:var(--green)}
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+    margin-top:10px;
+}
+.feature-card{
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:18px 22px;
+    border:1px solid var(--green);
+    border-radius:16px;
+    background:linear-gradient(120deg,#003b37,#001c20);
+    box-shadow:inset 0 0 20px #00e6a020,0 0 10px #00e6a022;
+    transition:.3s;
+}
+.feature-card:hover{transform:translateY(-5px);box-shadow:0 0 20px #00e6a055}
+.feature-icon{
+    min-width:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.feature-icon svg{width:100px;height:95px}
+.feature-text{flex:1}
+.feature-text h3{font-size:20px;margin-bottom:12px}
+.feature-text p{font-size:16px;line-height:1.5;color:#d4e5e2}
+.arrow{
+    width:42px;height:42px;
+    border:2px solid var(--green);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    color:var(--green);
+    font-size:25px;
+}
+
+/* ABOUT AND CONTACT */
+.bottom{
+    display:grid;
+    grid-template-columns:1fr 1.1fr 1fr;
+    gap:25px;
+    padding:0 3% 15px;
+    align-items:center;
+    border-top:1px solid #07534b;
+}
+.about-text h2,.contact h2{
+    font-size:29px;
+    margin-bottom:10px;
+}
+.about-text h2 span{color:var(--green)}
+.about-text p{
+    font-size:16px;
+    line-height:1.5;
+    color:#d4e5e2;
+    margin-bottom:15px;
+}
+.outline-btn{
+    display:inline-block;
+    border:1px solid var(--green);
+    border-radius:30px;
+    color:var(--green);
+    padding:11px 22px;
+    font-weight:bold;
+}
+.laptop{
+    background:linear-gradient(135deg,#003c39,#001b20);
+    border:1px solid var(--green);
+    border-radius:16px;
+    padding:15px;
+    min-height:195px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.laptop svg{width:100%;max-height:190px}
+.contact{
+    min-height:195px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:17px 20px;
+    background:linear-gradient(120deg,#002a2b,#003d36);
+    position:relative;
+    overflow:hidden;
+}
+.contact p{font-size:14px;margin:5px 0 12px}
+.contact .detail{font-size:15px;line-height:1.8}
+.contact .btn{padding:9px 20px;font-size:14px;margin-top:8px}
+
+/* FOOTER */
+footer{
+    border-top:1px solid var(--green);
+    padding:15px 3%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    background:#000e10;
+}
+footer p{font-size:15px;text-align:center}
+footer p span{color:var(--green)}
+.social{display:flex;gap:15px}
+.social a{
+    color:var(--green);
+    font-size:20px;
+    font-weight:bold;
+    background:#00342f;
+    border-radius:50%;
+    width:35px;height:35px;
+    display:grid;place-items:center;
+}
+
+@media(max-width:950px){
+    nav{height:auto;padding:15px;flex-wrap:wrap;gap:15px}
+    .navlinks{gap:8px;flex-wrap:wrap;justify-content:center}
+    .navlinks a{font-size:13px;padding:9px}
+    .hero-art{opacity:.35;width:75%}
+    .hero-content{width:75%}
+    .feature-grid{grid-template-columns:1fr}
+    .bottom{grid-template-columns:1fr 1fr}
+    .about-text{grid-column:1/-1}
+}
+@media(max-width:600px){
+    .hero{min-height:390px}
+    .hero-content{width:100%}
+    .hero h1{font-size:48px}
+    .tagline{font-size:23px}
+    .hero-art{width:100%;opacity:.2}
+    .bottom{grid-template-columns:1fr}
+    .about-text{grid-column:auto}
+    footer{flex-direction:column}
+}
+</style>
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <nav>
-        <a href="/" class="logo">Stock<span>Vision</span></a>
+<!-- NAVIGATION -->
+<nav>
+    <a href="/" class="logo">
+        <svg viewBox="0 0 80 60" fill="none">
+            <path d="M5 48L23 30L35 38L58 12" stroke="#00e6a0" stroke-width="5"/>
+            <path d="M48 12H58V23" stroke="#00e6a0" stroke-width="5"/>
+            <rect x="8" y="42" width="10" height="13" fill="#00e6a0"/>
+            <rect x="25" y="35" width="10" height="20" fill="#00e6a0"/>
+            <rect x="42" y="27" width="10" height="28" fill="#00e6a0"/>
+            <rect x="59" y="18" width="10" height="37" fill="#00e6a0"/>
+        </svg>
+        <div>Stock<span>Vision</span></div>
+    </a>
 
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="#features">Features</a>
-            <a href="/admin/">Admin</a>
-            <a href="/dashboard/" class="nav-button">Dashboard →</a>
-        </div>
-    </nav>
+    <div class="navlinks">
+        <a href="/" class="active">⌂ Home</a>
+        <a href="/dashboard/">▦ Dashboard</a>
+        <a href="/stocks/">▥ Stock Data</a>
+        <a href="/prediction/">↗ Prediction</a>
+        <a href="#about">ⓘ About</a>
+        <a href="#contact">✉ Contact</a>
+    </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
+    <a href="/admin/" class="login">♟ Login</a>
+</nav>
 
-        <div class="hero-content">
-            <div class="tag">● &nbsp; STOCK PRICE ANALYSIS PLATFORM</div>
-
-            <h1>
-                Understand the Market.<br>
-                <span>Explore Stock Trends.</span>
-            </h1>
-
-            <p class="hero-description">
-                Welcome to StockVision — a simple platform to explore
-                stock market records, review historical prices and
-                visualize stock trends through an interactive dashboard.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="/dashboard/" class="button button-primary">
-                    Explore Dashboard &nbsp; →
-                </a>
-
-                <a href="#features" class="button button-secondary">
-                    Discover Features
-                </a>
-            </div>
-        </div>
-
-        <!-- Illustrative chart, not live market data -->
-        <div class="market-card">
-            <div class="market-card-header">
-                <h2>Stock Price Analysis</h2>
-                <span class="live-label">● Stock Trends</span>
-            </div>
-
-            <p class="market-caption">
-                Illustrative chart for the StockVision homepage
-            </p>
-
-            <div class="chart">
-                <div class="bar" style="height: 28%"></div>
-                <div class="bar" style="height: 42%"></div>
-                <div class="bar" style="height: 35%"></div>
-                <div class="bar" style="height: 55%"></div>
-                <div class="bar" style="height: 48%"></div>
-                <div class="bar" style="height: 72%"></div>
-                <div class="bar" style="height: 64%"></div>
-                <div class="bar" style="height: 88%"></div>
-            </div>
-
-            <div class="chart-labels">
-                <span>Period 1</span>
-                <span>Period 2</span>
-                <span>Period 3</span>
-                <span>Period 4</span>
-                <span>Period 5</span>
-            </div>
-
-            <div class="market-note">
-                <p>Explore your saved stock records</p>
-                <strong>View Dashboard ↗</strong>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- FEATURES SECTION -->
-    <section class="features" id="features">
-
-        <div class="section-heading">
-            <h2>Explore <span>StockVision</span></h2>
-            <p>Everything you need to explore your stock market dataset.</p>
-        </div>
-
-        <div class="feature-grid">
-
-            <div class="feature-card">
-                <div class="feature-icon">▤</div>
-                <h3>Stock Data</h3>
-                <p>
-                    Explore stored company records, including open,
-                    high, low and closing prices.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">↗</div>
-                <h3>Price Analysis</h3>
-                <p>
-                    Use charts to understand price movements
-                    in the historical records available in your database.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">⌁</div>
-                <h3>AI Predictions</h3>
-                <p>
-                    Connect a trained machine-learning model to
-                    generate predictions from suitable historical data.
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- DASHBOARD CTA -->
-    <section class="cta">
-        <h2>Ready to Explore <span>Stock Data?</span></h2>
-
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Stock<span>Vision</span></h1>
+        <div class="tagline">Analyze <span>•</span> Predict <span>•</span> Invest</div>
         <p>
-            Open your dashboard to view the stock records
-            available in your project.
+            Your smart companion for stock market insights,
+            powered by data and machine learning.
         </p>
+        <a href="/dashboard/" class="btn">Explore Dashboard →</a>
+    </div>
 
-        <a href="/dashboard/" class="button button-primary">
-            Go to Dashboard &nbsp; →
+    <div class="hero-art">
+        <svg viewBox="0 0 850 350" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <linearGradient id="rise" x1="0" y1="1" x2="1" y2="0">
+                    <stop stop-color="#00a879"/>
+                    <stop offset="1" stop-color="#00ffd0"/>
+                </linearGradient>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="7" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+            </defs>
+
+            <g stroke="#00e6a0" opacity=".16">
+                <path d="M0 50H850 M0 110H850 M0 170H850 M0 230H850 M0 290H850"/>
+                <path d="M100 0V350 M200 0V350 M300 0V350 M400 0V350 M500 0V350 M600 0V350 M700 0V350"/>
+            </g>
+
+            <!-- World map dots -->
+            <g fill="#00c99b" opacity=".22">
+                <circle cx="200" cy="70" r="3"/><circle cx="220" cy="60" r="3"/>
+                <circle cx="240" cy="70" r="3"/><circle cx="260" cy="55" r="3"/>
+                <circle cx="280" cy="80" r="3"/><circle cx="300" cy="65" r="3"/>
+                <circle cx="320" cy="85" r="3"/><circle cx="350" cy="55" r="3"/>
+                <circle cx="370" cy="75" r="3"/><circle cx="390" cy="60" r="3"/>
+                <circle cx="410" cy="80" r="3"/><circle cx="430" cy="65" r="3"/>
+                <circle cx="450" cy="90" r="3"/><circle cx="470" cy="70" r="3"/>
+                <circle cx="490" cy="85" r="3"/><circle cx="510" cy="65" r="3"/>
+                <circle cx="530" cy="80" r="3"/><circle cx="550" cy="60" r="3"/>
+            </g>
+
+            <!-- Stock candlesticks -->
+            <g>
+                <g stroke="#00e6a0" fill="#00e6a0">
+                    <path d="M80 190V245 M95 170V230 M130 150V215 M165 160V220 M200 125V190 M240 115V180 M280 100V165 M320 85V150 M360 70V135 M400 65V125 M440 45V115 M480 35V105"/>
+                    <rect x="75" y="205" width="10" height="25"/>
+                    <rect x="90" y="185" width="10" height="28"/>
+                    <rect x="125" y="170" width="10" height="25"/>
+                    <rect x="195" y="145" width="10" height="27"/>
+                    <rect x="235" y="130" width="10" height="28"/>
+                    <rect x="275" y="115" width="10" height="25"/>
+                    <rect x="315" y="100" width="10" height="25"/>
+                    <rect x="355" y="85" width="10" height="28"/>
+                    <rect x="435" y="65" width="10" height="28"/>
+                </g>
+                <g stroke="#ff5b65" fill="#ff5b65">
+                    <path d="M110 175V235 M150 145V205 M220 110V170 M300 90V150 M380 65V120 M460 30V100"/>
+                    <rect x="105" y="190" width="10" height="22"/>
+                    <rect x="145" y="165" width="10" height="24"/>
+                    <rect x="215" y="125" width="10" height="23"/>
+                    <rect x="295" y="110" width="10" height="22"/>
+                    <rect x="375" y="80" width="10" height="22"/>
+                    <rect x="455" y="50" width="10" height="24"/>
+                </g>
+            </g>
+
+            <!-- Rising arrow -->
+            <path d="M25 290 C180 285 260 245 360 225 S550 165 670 85"
+                  stroke="url(#rise)" stroke-width="12" fill="none"
+                  stroke-linecap="round" filter="url(#glow)"/>
+            <path d="M640 75L700 45L685 110Z" fill="#00e6a0" filter="url(#glow)"/>
+
+            <!-- Coins -->
+            <g stroke="#00e6a0" stroke-width="3" filter="url(#glow)">
+                <g fill="#006e58">
+                    <ellipse cx="480" cy="295" rx="38" ry="12"/>
+                    <path d="M442 270V295Q480 320 518 295V270" />
+                    <ellipse cx="480" cy="270" rx="38" ry="12" fill="#00b98b"/>
+                    <ellipse cx="550" cy="280" rx="38" ry="12"/>
+                    <path d="M512 255V280Q550 305 588 280V255"/>
+                    <ellipse cx="550" cy="255" rx="38" ry="12" fill="#00b98b"/>
+                    <ellipse cx="625" cy="260" rx="38" ry="12"/>
+                    <path d="M587 235V260Q625 285 663 260V235"/>
+                    <ellipse cx="625" cy="235" rx="38" ry="12" fill="#00b98b"/>
+                </g>
+            </g>
+
+            <!-- Buildings -->
+            <g fill="#063c3a" stroke="#00a982" stroke-width="2">
+                <path d="M690 300V130L745 95L800 130V300Z"/>
+                <path d="M745 95V300 M690 160H800 M690 200H800 M690 240H800"/>
+            </g>
+            <g fill="#00e6a0" opacity=".8">
+                <rect x="705" y="145" width="10" height="20"/>
+                <rect x="730" y="145" width="10" height="20"/>
+                <rect x="755" y="145" width="10" height="20"/>
+                <rect x="780" y="145" width="10" height="20"/>
+                <rect x="705" y="185" width="10" height="20"/>
+                <rect x="730" y="185" width="10" height="20"/>
+                <rect x="755" y="185" width="10" height="20"/>
+                <rect x="780" y="185" width="10" height="20"/>
+            </g>
+        </svg>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+    <h2 class="heading">Our Feat<span>ures</span></h2>
+
+    <div class="feature-grid">
+
+        <a href="/stocks/" class="feature-card">
+            <div class="feature-icon">
+                <svg viewBox="0 0 110 100" fill="none">
+                    <rect x="8" y="12" width="92" height="68" rx="7" stroke="#00e6a0" stroke-width="6"/>
+                    <path d="M20 65L40 48L54 55L80 25" stroke="#00e6a0" stroke-width="4"/>
+                    <path d="M69 25H80V36" stroke="#00e6a0" stroke-width="4"/>
+                    <path d="M24 68V58H33V68 M43 68V49H52V68 M62 68V42H71V68 M81 68V34H90V68" fill="#00e6a0"/>
+                    <path d="M40 88H70 M55 80V88" stroke="#00e6a0" stroke-width="5"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h3>Stock Analysis</h3>
+                <p>Get detailed insights<br>on stock performance.</p>
+            </div>
+            <div class="arrow">➜</div>
         </a>
-    </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <a href="/" class="logo">Stock<span>Vision</span></a>
+        <a href="/stocks/" class="feature-card">
+            <div class="feature-icon">
+                <svg viewBox="0 0 110 100">
+                    <ellipse cx="55" cy="20" rx="35" ry="13" fill="#00e6a0"/>
+                    <path d="M20 20V70Q55 95 90 70V20" fill="#008c70"/>
+                    <ellipse cx="55" cy="70" rx="35" ry="13" fill="#00c995"/>
+                    <path d="M20 45Q55 68 90 45" stroke="#00e6a0" stroke-width="5" fill="none"/>
+                    <ellipse cx="55" cy="20" rx="35" ry="13" fill="#00dba0"/>
+                    <ellipse cx="55" cy="20" rx="10" ry="4" fill="#005b49"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h3>Market Data</h3>
+                <p>Explore live and<br>historical stock data.</p>
+            </div>
+            <div class="arrow">➜</div>
+        </a>
 
+        <a href="/prediction/" class="feature-card">
+            <div class="feature-icon">
+                <svg viewBox="0 0 110 100" fill="none">
+                    <rect x="25" y="20" width="60" height="60" rx="10" stroke="#00e6a0" stroke-width="6"/>
+                    <g stroke="#00e6a0" stroke-width="5">
+                        <path d="M40 5V20 M55 5V20 M70 5V20 M40 80V95 M55 80V95 M70 80V95"/>
+                        <path d="M10 35H25 M10 50H25 M10 65H25 M85 35H100 M85 50H100 M85 65H100"/>
+                    </g>
+                    <text x="55" y="60" text-anchor="middle" fill="#00e6a0" font-size="29" font-weight="bold">AI</text>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h3>Price Prediction</h3>
+                <p>Leverage AI to predict<br>future stock prices.</p>
+            </div>
+            <div class="arrow">➜</div>
+        </a>
+
+    </div>
+</section>
+
+<!-- ABOUT / LAPTOP / CONTACT -->
+<section class="bottom" id="about">
+
+    <div class="about-text">
+        <h2>About <span>StockVision</span></h2>
         <p>
-            © 2026 StockVision. Stock Price Prediction Project.
+            StockVision is a powerful web application that helps you
+            analyze stock market trends, view stock data, and predict
+            future prices using machine learning.
         </p>
-    </footer>
+        <a href="/dashboard/" class="outline-btn">Learn More →</a>
+    </div>
+
+    <div class="laptop">
+        <svg viewBox="0 0 500 220">
+            <rect x="85" y="15" width="330" height="175" rx="12"
+                  fill="#001316" stroke="#00e6a0" stroke-width="5"/>
+            <rect x="100" y="30" width="300" height="145" fill="#002b30"/>
+            <g stroke="#07534b">
+                <path d="M110 65H390 M110 100H390 M110 135H390"/>
+                <path d="M160 40V165 M220 40V165 M280 40V165 M340 40V165"/>
+            </g>
+            <path d="M115 140L155 120L195 130L235 85L275 100L315 60L355 75L385 45"
+                  fill="none" stroke="#00e6a0" stroke-width="5"/>
+            <g fill="#00e6a0">
+                <rect x="120" y="150" width="10" height="15"/>
+                <rect x="145" y="140" width="10" height="25"/>
+                <rect x="170" y="145" width="10" height="20"/>
+                <rect x="195" y="130" width="10" height="35"/>
+                <rect x="220" y="135" width="10" height="30"/>
+                <rect x="245" y="120" width="10" height="45"/>
+                <rect x="270" y="125" width="10" height="40"/>
+                <rect x="295" y="110" width="10" height="55"/>
+                <rect x="320" y="115" width="10" height="50"/>
+                <rect x="345" y="100" width="10" height="65"/>
+            </g>
+            <path d="M65 192H435L465 207H35Z" fill="#007e68" stroke="#00e6a0" stroke-width="2"/>
+            <path d="M220 195H280" stroke="#00e6a0" stroke-width="3"/>
+        </svg>
+    </div>
+
+    <div class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <p>Have any questions? We'd love to hear from you!</p>
+        <div class="detail">
+            ✉ support@stockvision.com<br>
+            ♦ Kerala, India<br>
+            ☎ +91 98765 43210
+        </div>
+        <a href="mailto:support@stockvision.com" class="btn">Get in Touch →</a>
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div></div>
+    <p>© 2026 <span>StockVision.</span> All Rights Reserved.</p>
+    <div class="social">
+        <a href="#">▶</a>
+        <a href="#">●</a>
+        <a href="#">in</a>
+        <a href="#">➤</a>
+    </div>
+</footer>
 
 </body>
 </html>
